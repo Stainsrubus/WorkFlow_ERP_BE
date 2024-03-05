@@ -5,10 +5,14 @@ import fileUpload from "../utils/fileUpload.js";
 
 const router = express.Router();
 
-router.post("/signup", EmployeeController.signup);
+router.post(
+  "/signup",
+  fileUpload("./storage/images"),
+  EmployeeController.signup
+);
 router.post(
   "/create",
-  fileUpload("./storage,images"),
+  fileUpload("./storage/images"),
   EmployeeController.create
 );
 router.post("/login", EmployeeController.login);
@@ -26,9 +30,9 @@ router.get(
 );
 router.put(
   "/editemployee/:id",
-  fileUpload("./storage,images"),
+  fileUpload("./storage/images"),
   Auth.validate,
- 
+
   EmployeeController.editEmployee
 );
 router.delete(

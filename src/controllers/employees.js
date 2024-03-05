@@ -32,8 +32,12 @@ const signup = async(req,res)=>{
     try {
         let employee = await employeeModel.findOne({email:req.body.email})
         if(!employee){
+            let image = '';
+            if (req.file) {
+                image = req.file.path;
+            }
             req.body.password = await Auth.hashPassword(req.body.password)
-            await employeeModel.create(req.body)
+            await employeeModel.create({...req.body,image})
             res.status(201).send({
                 message:"Employee Created Successfully"
              })
